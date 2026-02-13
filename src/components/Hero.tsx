@@ -102,7 +102,7 @@ export default function Hero({ onOpenModal }: { onOpenModal: () => void }) {
                 border-none rounded-2xl cursor-pointer
                 shadow-[0_4px_24px_rgba(196,162,101,0.5)]
                 anim-fade-up anim-delay-4
-                mb-[20px]
+                mb-[40px]
               "
             >
               Получить консультацию
