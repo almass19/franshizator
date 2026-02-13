@@ -11,6 +11,7 @@ export default function Modal({
 }) {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
   const handleEscape = useCallback(
     (e: KeyboardEvent) => {
@@ -37,12 +38,14 @@ export default function Modal({
     if (!isOpen) {
       setSubmitted(false);
       setSubmitting(false);
+      setError("");
     }
   }, [isOpen]);
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setSubmitting(true);
+    setError("");
 
     const form = e.currentTarget;
     const data = {
@@ -59,11 +62,24 @@ export default function Modal({
       w.fbq("track", "Lead", data);
     }
 
-    // Simulate send delay
-    setTimeout(() => {
+    try {
+      const res = await fetch("/api/lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) {
+        const body = await res.json().catch(() => null);
+        throw new Error(body?.error || "Ошибка отправки");
+      }
+
       setSubmitted(true);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Не удалось отправить заявку");
+    } finally {
       setSubmitting(false);
-    }, 600);
+    }
   }
 
   if (!isOpen) return null;
@@ -173,6 +189,9 @@ export default function Modal({
                   "
                 />
               </div>
+              {error && (
+                <p className="text-red-400 text-sm mb-3">{error}</p>
+              )}
               <button
                 type="submit"
                 disabled={submitting}
