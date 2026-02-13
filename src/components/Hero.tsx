@@ -44,7 +44,7 @@ export default function Hero({ onOpenModal }: { onOpenModal: () => void }) {
           className="
             hidden
             max-md:flex max-md:flex-col max-md:relative max-md:z-10
-            max-md:w-full max-md:h-[100svh] max-md:pt-[75px] max-md:pb-15 max-md:px-5
+            max-md:w-full max-md:h-[80svh] max-md:pt-[65px] max-md:pb-15 max-md:px-5
           "
         >
           {/* Top: Title */}
