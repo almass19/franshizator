@@ -54,7 +54,7 @@ export default function Stats() {
 
         max-lg:justify-center max-lg:flex-wrap max-lg:gap-[30px]
 
-        max-md:gap-0 max-md:mb-20 max-md:w-full
+        max-md:gap-0 max-md:mb-1 max-md:w-full
         max-md:bg-navy/60 max-md:backdrop-blur-sm max-md:border max-md:border-gold/20
         max-md:rounded-[14px] max-md:py-3
       "

@@ -44,7 +44,7 @@ export default function Hero({ onOpenModal }: { onOpenModal: () => void }) {
           className="
             hidden
             max-md:flex max-md:flex-col max-md:relative max-md:z-10
-            max-md:w-full max-md:h-[80svh] max-md:pt-[65px] max-md:pb-15 max-md:px-5
+            max-md:w-full max-md:h-[100svh] max-md:pt-[75px] max-md:pb-[60px] max-md:px-5
           "
         >
           {/* Top: Title */}
@@ -62,14 +62,14 @@ export default function Hero({ onOpenModal }: { onOpenModal: () => void }) {
           </div>
 
           {/* Spacer */}
-          <div className="flex-1" />
+          <div className="flex-1 min-h-0" />
 
           {/* Bottom: Offer + subtitle + Stats + CTA */}
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-1">
             <div
               className="
                 bg-navy/60 backdrop-blur-sm border-l-[3px] border-gold
-                py-2.5 px-3.5 text-[12px] font-medium text-beige
+                py-2 px-3 text-[12px] font-medium text-beige
                 leading-[1.4] rounded-r-xl
                 anim-fade-up anim-delay-1
               "
@@ -80,7 +80,7 @@ export default function Hero({ onOpenModal }: { onOpenModal: () => void }) {
 
             <p
               className="
-                text-[13px] leading-[1.4] text-beige
+                text-[13px] leading-[1.4] text-beige my-[4px]
                 drop-shadow-[0_1px_4px_rgba(0,0,0,0.4)]
                 anim-fade-up anim-delay-2
               "
