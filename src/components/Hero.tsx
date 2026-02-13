@@ -6,7 +6,6 @@ import Stats from "./Stats";
 export default function Hero({ onOpenModal }: { onOpenModal: () => void }) {
   return (
     <>
-      {/* ===== HERO SECTION ===== */}
       <section
         className="
           flex items-start justify-between
@@ -16,17 +15,17 @@ export default function Hero({ onOpenModal }: { onOpenModal: () => void }) {
           max-lg:px-[30px] max-lg:pt-10
           max-lg:flex-col max-lg:text-center max-lg:min-h-auto max-lg:items-center
 
-          max-md:p-0 max-md:min-h-[100svh] max-md:overflow-hidden
+          max-md:p-0 max-md:h-[100svh] max-md:min-h-0 max-md:overflow-hidden
         "
       >
-        {/* Fullscreen image — mobile */}
+        {/* ===== FULLSCREEN BACKGROUND IMAGE (mobile) / normal card (desktop) ===== */}
         <div
           className="
             relative shrink-0 w-[480px] h-[600px] overflow-hidden rounded-[30px]
 
             max-lg:w-[380px] max-lg:h-[480px] max-lg:mt-10 max-lg:rounded-3xl max-lg:order-2
 
-            max-md:absolute max-md:inset-0 max-md:w-full max-md:h-full max-md:rounded-none max-md:order-none
+            max-md:absolute max-md:inset-0 max-md:w-full max-md:h-full max-md:rounded-none max-md:mt-0
           "
         >
           <Image
@@ -36,34 +35,95 @@ export default function Hero({ onOpenModal }: { onOpenModal: () => void }) {
             className="object-cover object-top"
             priority
           />
-          {/* Dark gradient overlay — mobile only */}
-          <div className="hidden max-md:block absolute inset-0 bg-gradient-to-t from-navy via-navy/60 to-transparent" />
+          {/* Gradient overlay — mobile only */}
+          <div className="hidden max-md:block absolute inset-0 bg-gradient-to-b from-navy/30 via-transparent to-navy/90" />
         </div>
 
-        {/* Content overlay on image (mobile) / normal flow (desktop) */}
+        {/* ===== MOBILE OVERLAY: all content over the fullscreen image ===== */}
+        <div
+          className="
+            hidden
+            max-md:flex max-md:flex-col max-md:relative max-md:z-10
+            max-md:w-full max-md:h-[100svh] max-md:pt-[60px] max-md:pb-5 max-md:px-5
+          "
+        >
+          {/* Top: Title + subtitle */}
+          <div className="flex flex-col">
+            <h1
+              className="
+                text-[22px] font-extrabold leading-[1.2] tracking-[-0.3px]
+                text-left uppercase mb-2
+                drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]
+                anim-fade-up
+              "
+            >
+              Упаковка и продажа вашей франшизы под ключ
+            </h1>
+
+            <p
+              className="
+                text-[13px] leading-[1.4] text-beige/80
+                drop-shadow-[0_1px_4px_rgba(0,0,0,0.4)]
+                anim-fade-up anim-delay-1
+              "
+            >
+              Полное сопровождение после запуска: от первой продажи до построения
+              франчайзинговой сети
+            </p>
+          </div>
+
+          {/* Spacer */}
+          <div className="flex-1" />
+
+          {/* Bottom: Offer + Stats + CTA */}
+          <div className="flex flex-col gap-3">
+            <div
+              className="
+                bg-navy/60 backdrop-blur-sm border-l-[3px] border-gold
+                py-2.5 px-3.5 text-[12px] font-medium text-beige
+                leading-[1.4] rounded-r-xl
+                anim-fade-up anim-delay-2
+              "
+            >
+              <span className="text-gold font-bold">Специальное предложение</span>{" "}
+              для предпринимателей с прибылью от 2 000 000 тенге в месяц
+            </div>
+
+            <div className="anim-fade-up anim-delay-3">
+              <Stats />
+            </div>
+
+            <button
+              onClick={onOpenModal}
+              className="
+                w-full text-center py-3.5 text-[15px]
+                bg-linear-to-br from-gold-light to-gold
+                text-navy font-bold uppercase tracking-[0.3px]
+                border-none rounded-2xl cursor-pointer
+                shadow-[0_4px_24px_rgba(196,162,101,0.5)]
+                anim-fade-up anim-delay-4 anim-pulse
+              "
+            >
+              Получить консультацию
+            </button>
+          </div>
+        </div>
+
+        {/* ===== DESKTOP CONTENT (unchanged) ===== */}
         <div
           className="
             max-w-[620px] shrink-0 pt-5
 
             max-lg:max-w-full max-lg:pt-0 max-lg:order-1
 
-            max-md:relative max-md:z-10 max-md:max-w-full
-            max-md:mt-auto max-md:px-5 max-md:pb-8 max-md:pt-0
-            max-md:flex max-md:flex-col max-md:justify-end max-md:min-h-[100svh]
+            max-md:hidden
           "
         >
-          {/* Spacer to push content to bottom on mobile */}
-          <div className="hidden max-md:block max-md:flex-1" />
-
           <h1
             className="
               text-5xl font-extrabold leading-[1.15] tracking-tight mb-5 uppercase
               anim-fade-up
-
               max-lg:text-4xl
-
-              max-md:text-[26px] max-md:mb-3 max-md:leading-[1.2] max-md:tracking-[-0.3px] max-md:text-left
-              max-md:drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)]
             "
           >
             Упаковка и продажа вашей франшизы под ключ
@@ -73,26 +133,19 @@ export default function Hero({ onOpenModal }: { onOpenModal: () => void }) {
             className="
               text-lg leading-relaxed text-beige-muted mb-3
               anim-fade-up anim-delay-2
-
-              max-md:text-sm max-md:leading-[1.5] max-md:mb-5 max-md:text-beige/80
-              max-md:drop-shadow-[0_1px_4px_rgba(0,0,0,0.4)]
             "
           >
             Полное сопровождение после запуска: от первой продажи до построения
             франчайзинговой сети
           </p>
 
-          {/* Offer badge — desktop & tablet only */}
           <div
             className="
               inline-block bg-gold/10 border-l-4 border-gold
               py-3.5 px-5 text-[15px] font-semibold text-beige
               leading-relaxed mb-[35px] rounded-r-lg
               anim-fade-up anim-delay-3
-
               max-lg:text-left max-lg:block
-
-              max-md:hidden
             "
           >
             <span className="text-gold">Специальное предложение</span>{" "}
@@ -100,8 +153,7 @@ export default function Hero({ onOpenModal }: { onOpenModal: () => void }) {
             <br /> с прибылью от 2 000 000 тенге в месяц
           </div>
 
-          {/* Stats — desktop & tablet only (mobile stats are below hero) */}
-          <div className="anim-fade-up anim-delay-4 max-md:hidden">
+          <div className="anim-fade-up anim-delay-4">
             <Stats />
           </div>
 
@@ -114,37 +166,11 @@ export default function Hero({ onOpenModal }: { onOpenModal: () => void }) {
               transition-all duration-200
               hover:translate-y-[-2px] hover:shadow-[0_8px_25px_rgba(196,162,101,0.35)]
               anim-fade-up anim-delay-5
-
               max-lg:py-4 max-lg:px-8 max-lg:text-sm
-
-              max-md:w-full max-md:text-center max-md:py-4.5 max-md:text-[15px]
-              max-md:font-bold max-md:rounded-2xl max-md:tracking-[0.3px]
-              max-md:shadow-[0_4px_24px_rgba(196,162,101,0.5)]
-              max-md:anim-pulse
             "
           >
             Получить консультацию
           </button>
-        </div>
-      </section>
-
-      {/* ===== MOBILE STATS SECTION (below hero) ===== */}
-      <section className="hidden max-md:block px-5 py-8 bg-navy">
-        {/* Offer badge — mobile */}
-        <div
-          className="
-            bg-gold/10 border-l-[3px] border-gold
-            py-3 px-4 text-[13px] font-medium text-beige
-            leading-[1.5] mb-6 rounded-r-xl
-            anim-fade-up
-          "
-        >
-          <span className="text-gold font-bold">Специальное предложение</span>{" "}
-          для предпринимателей с прибылью от 2 000 000 тенге в месяц
-        </div>
-
-        <div className="anim-fade-up anim-delay-1">
-          <Stats />
         </div>
       </section>
     </>
