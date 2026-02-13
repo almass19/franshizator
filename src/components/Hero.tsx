@@ -36,7 +36,7 @@ export default function Hero({ onOpenModal }: { onOpenModal: () => void }) {
             priority
           />
           {/* Gradient overlay — mobile only */}
-          <div className="hidden max-md:block absolute inset-0 bg-gradient-to-b from-navy/30 via-transparent to-navy/90" />
+          <div className="hidden max-md:block absolute inset-0 bg-gradient-to-b from-navy/70 via-navy/20 to-navy/90" />
         </div>
 
         {/* ===== MOBILE OVERLAY: all content over the fullscreen image ===== */}
@@ -44,50 +44,50 @@ export default function Hero({ onOpenModal }: { onOpenModal: () => void }) {
           className="
             hidden
             max-md:flex max-md:flex-col max-md:relative max-md:z-10
-            max-md:w-full max-md:h-[100svh] max-md:pt-[60px] max-md:pb-5 max-md:px-5
+            max-md:w-full max-md:h-[100svh] max-md:pt-[90px] max-md:pb-5 max-md:px-5
           "
         >
-          {/* Top: Title + subtitle */}
+          {/* Top: Title */}
           <div className="flex flex-col">
             <h1
               className="
                 text-[22px] font-extrabold leading-[1.2] tracking-[-0.3px]
-                text-left uppercase mb-2
+                text-center uppercase
                 drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]
                 anim-fade-up
               "
             >
               Упаковка и продажа вашей франшизы под ключ
             </h1>
-
-            <p
-              className="
-                text-[13px] leading-[1.4] text-beige/80
-                drop-shadow-[0_1px_4px_rgba(0,0,0,0.4)]
-                anim-fade-up anim-delay-1
-              "
-            >
-              Полное сопровождение после запуска: от первой продажи до построения
-              франчайзинговой сети
-            </p>
           </div>
 
           {/* Spacer */}
           <div className="flex-1" />
 
-          {/* Bottom: Offer + Stats + CTA */}
+          {/* Bottom: Offer + subtitle + Stats + CTA */}
           <div className="flex flex-col gap-3">
             <div
               className="
                 bg-navy/60 backdrop-blur-sm border-l-[3px] border-gold
                 py-2.5 px-3.5 text-[12px] font-medium text-beige
                 leading-[1.4] rounded-r-xl
-                anim-fade-up anim-delay-2
+                anim-fade-up anim-delay-1
               "
             >
               <span className="text-gold font-bold">Специальное предложение</span>{" "}
               для предпринимателей с прибылью от 2 000 000 тенге в месяц
             </div>
+
+            <p
+              className="
+                text-[13px] leading-[1.4] text-beige
+                drop-shadow-[0_1px_4px_rgba(0,0,0,0.4)]
+                anim-fade-up anim-delay-2
+              "
+            >
+              Полное сопровождение после запуска: от первой продажи до построения
+              франчайзинговой сети
+            </p>
 
             <div className="anim-fade-up anim-delay-3">
               <Stats />
@@ -101,7 +101,7 @@ export default function Hero({ onOpenModal }: { onOpenModal: () => void }) {
                 text-navy font-bold uppercase tracking-[0.3px]
                 border-none rounded-2xl cursor-pointer
                 shadow-[0_4px_24px_rgba(196,162,101,0.5)]
-                anim-fade-up anim-delay-4 anim-pulse
+                anim-fade-up anim-delay-4
               "
             >
               Получить консультацию
