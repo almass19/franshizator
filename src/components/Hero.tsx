@@ -44,7 +44,7 @@ export default function Hero({ onOpenModal }: { onOpenModal: () => void }) {
           className="
             hidden
             max-md:flex max-md:flex-col max-md:relative max-md:z-10
-            max-md:w-full max-md:h-[100svh] max-md:pt-[75px] max-md:pb-5 max-md:px-5
+            max-md:w-full max-md:h-[100svh] max-md:pt-[75px] max-md:pb-15 max-md:px-5
           "
         >
           {/* Top: Title */}
@@ -102,7 +102,6 @@ export default function Hero({ onOpenModal }: { onOpenModal: () => void }) {
                 border-none rounded-2xl cursor-pointer
                 shadow-[0_4px_24px_rgba(196,162,101,0.5)]
                 anim-fade-up anim-delay-4
-                max-md:mb-[100px]
               "
             >
               Получить консультацию
