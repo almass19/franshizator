@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
+import nodemailer from "nodemailer";
 
 export async function POST(req: Request) {
   try {
-    const { name, phone, business } = await req.json();
+    const { name, phone, business, page } = await req.json();
 
     if (!name?.trim() || !phone?.trim()) {
       return NextResponse.json(
@@ -31,12 +32,18 @@ export async function POST(req: Request) {
       minute: "2-digit",
     });
 
+    const trimmedName = name.trim();
+    const trimmedPhone = phone.trim();
+    const trimmedBusiness = business?.trim() || "";
+    const pageUrl = page?.trim() || "";
+
+    // --- Telegram ---
     const text = [
       "📩 Новая заявка с сайта",
       "",
-      `👤 Имя: ${name.trim()}`,
-      `📞 Телефон: ${phone.trim()}`,
-      business?.trim() ? `💼 Бизнес: ${business.trim()}` : "",
+      `👤 Имя: ${trimmedName}`,
+      `📞 Телефон: ${trimmedPhone}`,
+      trimmedBusiness ? `💼 Бизнес: ${trimmedBusiness}` : "",
       "",
       `🕐 ${now}`,
     ]
@@ -63,6 +70,47 @@ export async function POST(req: Request) {
         { ok: false, error: "Не удалось отправить заявку" },
         { status: 502 }
       );
+    }
+
+    // --- Email (не блокирует ответ клиенту) ---
+    const emailTo = process.env.EMAIL_TO;
+    const emailUser = process.env.EMAIL_USER;
+    const emailPass = process.env.EMAIL_PASS;
+
+    if (emailTo && emailUser && emailPass) {
+      const html = `<h1>Вам поступила новая заявка на франшизу «Франшизатор»</h1>
+
+<p><i>Информация, указанная посетителем сайта:</i></p>
+
+<p><b>Имя отправителя:</b> ${trimmedName}</p>
+
+<p><b>Номер телефона:</b> ${trimmedPhone}</p>
+
+${trimmedBusiness ? `<p><b>Бизнес:</b> ${trimmedBusiness}</p>` : ""}
+
+<p><i>Информация из рекламной системы:</i></p>
+
+<p><b>Url страницы, с которого пришла заявка:</b><br><a href="${pageUrl || "https://franshizator.vercel.app"}">${pageUrl || "https://franshizator.vercel.app"}</a></p>
+
+<p><b><i>Свяжитесь с потенциальным покупателем в течение 15 минут!</i></b></p>`;
+
+      const transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true,
+        auth: { user: emailUser, pass: emailPass },
+      });
+
+      transporter
+        .sendMail({
+          from: `"Франшизатор" <${emailUser}>`,
+          to: emailTo,
+          subject: "Заявка на франшизу «Франшизатор»",
+          html,
+        })
+        .catch((err: unknown) => console.error("Email send error:", err));
+    } else {
+      console.warn("Email not configured — skipping email notification");
     }
 
     return NextResponse.json({ ok: true });
