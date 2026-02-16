@@ -101,14 +101,16 @@ ${trimmedBusiness ? `<p><b>Бизнес:</b> ${trimmedBusiness}</p>` : ""}
         auth: { user: emailUser, pass: emailPass },
       });
 
-      transporter
-        .sendMail({
+      try {
+        await transporter.sendMail({
           from: `"Франшизатор" <${emailUser}>`,
           to: emailTo,
           subject: "Заявка на франшизу «Франшизатор»",
           html,
-        })
-        .catch((err: unknown) => console.error("Email send error:", err));
+        });
+      } catch (err) {
+        console.error("Email send error:", err);
+      }
     } else {
       console.warn("Email not configured — skipping email notification");
     }
